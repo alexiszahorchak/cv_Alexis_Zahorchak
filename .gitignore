@@ -1,0 +1,8 @@
+/.quarto/
+/_site/
+/docs/
+/.vscode/
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata

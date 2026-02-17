@@ -1,0 +1,116 @@
+---
+title: "Building This Site: From Jekyll to Quarto"
+description: "How I migrated my CV website to Quarto and added blog functionality"
+author: "Alexis Zahorchak"
+date: "2026-02-17"
+categories: [web development, quarto, github pages]
+---
+
+## Why Migrate to Quarto?
+
+When I first created my CV website, I used Jekyll with the minimal theme—a straightforward approach that worked well for a static CV. However, as I wanted to expand the site to include technical blog posts about my neuroscience research and data analysis work, I found Jekyll's configuration and blog setup less intuitive than I'd hoped.
+
+Enter [Quarto](https://quarto.org), a modern publishing system that's designed for scientific and technical content. The decision to migrate came down to several key benefits:
+
+1. **Native blog support**: Quarto's listing feature makes it trivial to create and maintain a blog
+2. **Better control**: Simple, readable YAML configuration that's easy to customize
+3. **Scientific content**: Built-in support for LaTeX math, code execution, and academic formatting
+4. **Modern tooling**: Active development and excellent documentation
+
+## Technical Implementation
+
+### Project Structure
+
+The migration involved restructuring the repository to follow Quarto's conventions:
+
+```
+├── _quarto.yml              # Main configuration
+├── index.qmd                # CV (home page)
+├── blog.qmd                 # Blog listing page
+├── posts/                   # Blog posts directory
+│   ├── _metadata.yml        # Blog configuration
+│   └── YYYY-MM-DD-post-title/
+│       └── index.qmd        # Individual post
+├── .github/workflows/
+│   └── publish.yml          # GitHub Actions deployment
+└── docs/                    # Generated output (for GitHub Pages)
+```
+
+### Quarto Configuration
+
+The `_quarto.yml` file defines the entire site structure:
+
+```yaml
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Alexis Zahorchak"
+  navbar:
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "Blog"
+        href: blog.qmd
+  page-footer:
+    left: |
+      Email and LinkedIn links
+```
+
+This creates a clean navigation bar with Home and Blog sections, and outputs everything to the `docs/` directory for GitHub Pages hosting.
+
+### Blog Listing Feature
+
+The `blog.qmd` page uses Quarto's listing feature to automatically generate a post index:
+
+```yaml
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  fields: [date, title, description]
+```
+
+This means I never have to manually update an index—new posts are automatically discovered and sorted by date.
+
+### Automated Deployment
+
+GitHub Actions handles the entire build and deployment process. The workflow:
+
+1. Triggers on every push to the main branch
+2. Sets up Quarto in the CI environment
+3. Renders the website
+4. Deploys to GitHub Pages
+
+The entire process takes about 1-2 minutes, and the live site is automatically updated.
+
+## Adding Future Posts
+
+To add a new blog post, I simply:
+
+1. Create a new directory in `posts/` with the format `YYYY-MM-DD-post-title/`
+2. Add an `index.qmd` file with front matter (title, date, description, categories)
+3. Write content using Markdown, LaTeX math, or code blocks
+4. Commit and push—GitHub Actions handles the rest
+
+## Benefits So Far
+
+The migration has already paid dividends:
+
+- **Easier content creation**: Writing in Quarto markdown feels natural for technical content
+- **Better organization**: Clear separation between CV and blog content
+- **Professional appearance**: The Cosmo theme provides a clean, modern look
+- **No manual deployment**: Push to GitHub and the site updates automatically
+
+## Looking Forward
+
+This site will serve as a platform to share:
+
+- Technical notes from my thesis research on gamma-band connectivity and social networks
+- Data analysis techniques in MATLAB and R
+- Reflections on multimodal neuroimaging (EEG, fMRI, ECG)
+- Project documentation and code examples
+
+If you're considering a similar migration, I highly recommend Quarto—especially if you work with technical or scientific content. The learning curve is gentle, the documentation is excellent, and the result is a professional, maintainable website.

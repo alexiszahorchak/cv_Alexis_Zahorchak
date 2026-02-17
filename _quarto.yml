@@ -1,0 +1,23 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Alexis Zahorchak"
+  navbar:
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "Blog"
+        href: blog.qmd
+  page-footer:
+    left: |
+      **Email:** [amt6430@psu.edu](mailto:amt6430@psu.edu) |
+      **LinkedIn:** [linkedin.com/in/alexis-zahorchak](https://www.linkedin.com/in/alexis-zahorchak)
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
+    smooth-scroll: true

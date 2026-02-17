@@ -1,0 +1,11 @@
+---
+title: "Blog"
+description: "Technical notes and reflections on neuroscience research, data analysis, and engineering"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  fields: [date, title, description]
+  date-format: "MMMM D, YYYY"
+---
